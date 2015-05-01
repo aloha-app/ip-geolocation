@@ -18,7 +18,9 @@ import org.slf4j.LoggerFactory;
  * 
  * @author javamonk
  * @createTime 2015年4月3日 下午12:36:53
- * @see data file source <a href="https://db-ip.com/db/">https://db-ip.com/db/</a>, Copyright 2015 db-ip.com
+ * @see data file source <a
+ *      href="https://db-ip.com/db/">https://db-ip.com/db/</a>, Copyright
+ *      2015 db-ip.com
  *      <a href="http://en.wikipedia.org/wiki/Private_network">http://en.
  *      wikipedia.org/wiki/Private_network</a>
  * @see algorithm <a href=
@@ -93,6 +95,21 @@ public abstract class IpCountryHelper {
     }
 
     /**
+     * Get country of an IP
+     * 
+     * @param ip
+     * @return
+     * @throws IllegalArgumentException if ip invalid
+     */
+    public static String getCountry(String ip) {
+        Long longIp = RequestIpHelper.ipv4ToLong(ip);
+        if (longIp == null) {
+            throw new IllegalArgumentException("invalid ip: " + ip);
+        }
+        return getCountry(longIp);
+    }
+
+    /**
      * 获取ip对应的国家
      * 
      * @param ip
@@ -110,6 +127,21 @@ public abstract class IpCountryHelper {
         }
         logger.warn("value错误: start={}, end={}, ip={}", start, end, ip);
         return null;
+    }
+
+    /**
+     * Test if IP is private network IP
+     * 
+     * @param ip
+     * @return
+     * @throws IllegalArgumentException if ip invalid
+     */
+    public static boolean isPrivateNetworkIp(String ip) {
+        Long longIp = RequestIpHelper.ipv4ToLong(ip);
+        if (longIp == null) {
+            throw new IllegalArgumentException("invalid ip: " + ip);
+        }
+        return isPrivateNetworkIp(longIp);
     }
 
     /**
